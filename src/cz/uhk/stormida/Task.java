@@ -9,12 +9,14 @@ public class Task extends StackMobModel {
     private Date dueDate;
     private int priority;
     private boolean done;
+    private String description;
  
-    public Task(String name, Date dueDate) {
+    public Task(String name, Date dueDate, String description) {
         super(Task.class);
         this.name = name;
         this.dueDate = dueDate;
         this.priority = 0;
         this.done = false;
+        this.description = description;
     }
 }

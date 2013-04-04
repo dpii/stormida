@@ -25,8 +25,8 @@ public class MainActivity extends Activity {
 		StackMobAndroid.init(getApplicationContext(), 0, "7a3785e2-64bd-495c-92e6-93da7d05c9c2");
 		
 		
-		Task myTask = new Task("Learn more about StackMob", new Date());
-		myTask.save();
+		//Task myTask = new Task("Learn more about StackMob", new Date(), "test test");
+		//myTask.save();
 
 		String[] tlacitka = { "button1", "button2", "button3", "buttonplus",
 				"button4", "button5", "button6", "buttonminus", "button7",
