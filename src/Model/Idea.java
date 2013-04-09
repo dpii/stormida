@@ -1,4 +1,4 @@
-package cz.uhk.stormida;
+package Model;
 
 import com.stackmob.sdk.model.StackMobModel;
  

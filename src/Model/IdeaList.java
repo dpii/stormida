@@ -1,7 +1,8 @@
-package cz.uhk.stormida;
+package Model;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 import com.stackmob.sdk.model.StackMobModel;
 
