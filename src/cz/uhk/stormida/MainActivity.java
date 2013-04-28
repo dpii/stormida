@@ -1,5 +1,7 @@
 package cz.uhk.stormida;
 
+import java.util.List;
+
 import Model.User;
 import android.app.Activity;
 import android.content.Context;
@@ -7,116 +9,181 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.googlecode.androidannotations.annotations.Background;
+import com.googlecode.androidannotations.annotations.Click;
+import com.googlecode.androidannotations.annotations.EActivity;
+import com.googlecode.androidannotations.annotations.UiThread;
+import com.googlecode.androidannotations.annotations.ViewById;
 import com.stackmob.android.sdk.common.StackMobAndroid;
-import com.stackmob.sdk.callback.StackMobModelCallback;
+import com.stackmob.sdk.api.StackMob;
+import com.stackmob.sdk.api.StackMobQuery;
+import com.stackmob.sdk.api.StackMobQueryField;
+import com.stackmob.sdk.callback.StackMobCallback;
+import com.stackmob.sdk.callback.StackMobQueryCallback;
 import com.stackmob.sdk.exception.StackMobException;
 
+@EActivity(R.layout.activity_main)
 public class MainActivity extends Activity {
 
-	private String login, pass;
+	@ViewById(R.id.btLogin)
+	Button btLogin;
+
+	private String login, pass, login_;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		// setContentView(R.layout.activity_main);
+
 		StackMobAndroid.init(getApplicationContext(), 0,
 				"7a3785e2-64bd-495c-92e6-93da7d05c9c2");
+		StackMob.getStackMob().getSession().getLogger().setLogging(true);
 
-		String[] tlacitka = { "btLogin", "btRegister" };
+		checkLoginSession();
 
-		View.OnClickListener myListener = new View.OnClickListener() {
+	}
 
-			public void onClick(View v) {
+	private void checkLoginSession() {
 
-				switch (v.getId()) {
+		if (StackMob.getStackMob().isLoggedIn()) {
+			User.getLoggedInUser(User.class, new StackMobQueryCallback<User>() {
+				@Override
+				public void success(List<User> list) {
 
-				case R.id.btLogin:
+					//User loggedInUser = list.get(0);
 
-					Button b_login = (Button) findViewById(R.id.btLogin);
-
-					b_login.setOnClickListener(new OnClickListener() {
-
-						@Override
-						public void onClick(View v) {
-
-							login = ((EditText) findViewById(R.id.tLogin))
-									.getText().toString();
-							pass = ((EditText) findViewById(R.id.tPassword))
-									.getText().toString();
-
-							User user = new User(login, pass);
-							user.login(new StackMobModelCallback() {
-
-								@Override
-								public void success() {
-
-									Context context = getApplicationContext();
-									CharSequence text = "Welcome back!";
-									int duration = Toast.LENGTH_SHORT;
-
-									Toast toast = Toast.makeText(context, text,
-											duration);
-									toast.setGravity(Gravity.CENTER
-											| Gravity.CENTER, 0, 0);
-									toast.show();
-
-									Intent goUser = new Intent(
-											MainActivity.this, MyStorms.class);
-									goUser.putExtra("login", login);
-									startActivity(goUser);
-
-								}
-
-								@Override
-								public void failure(StackMobException e) {
-
-									Context context = getApplicationContext();
-									CharSequence text = "Login or Password is incorrect. Plase try again!";
-									int duration = Toast.LENGTH_SHORT;
-
-									Toast toast = Toast.makeText(context, text,
-											duration);
-									toast.setGravity(Gravity.CENTER
-											| Gravity.CENTER, 0, 0);
-									toast.show();
-
-								}
-							});
-
-						}
-					});
-
-					break;
-
-				case R.id.btRegister:
-
-					Intent reg = new Intent(MainActivity.this,
-							RegActivity.class);
-
-					reg.putExtra("test", 1000);
-					startActivity(reg);
-
-					break;
-
+					goUser();
 				}
 
+				@Override
+				public void failure(StackMobException e) {
+					showToast("Connection Error!");
+				}
+			});
+		} else {
+
+			
+		}
+
+	}
+
+	@Click(R.id.btLogin)
+	void clickLogin() {
+
+		login = ((EditText) findViewById(R.id.tLogin)).getText().toString();
+		pass = ((EditText) findViewById(R.id.tPassword)).getText().toString();
+
+		User user = new User(login, pass);
+
+		user.login(new StackMobCallback() {
+
+			@Override
+			public void success(String arg0) {
+
+				showToast("Welcome back!");
+
+				goUser();
+
 			}
-		};
 
-		for (String s : tlacitka) {
+			@Override
+			public void failure(StackMobException arg0) {
 
-			int resId = getResources().getIdentifier(s, "id", getPackageName());
+				showToast("Wrong username or password!");
 
-			Button b = (Button) findViewById(resId);
-			b.setOnClickListener(myListener);
+			}
+		});
+
+	}
+
+	@Click(R.id.btRegister)
+	void clickRegister() {
+
+		login = ((EditText) findViewById(R.id.tLogin)).getText().toString();
+		pass = ((EditText) findViewById(R.id.tPassword)).getText().toString();
+
+		checkUserExistsSave(login);
+
+	}
+
+	@UiThread
+	void checkUserExistsSave(String login) {
+
+		User.query(User.class, new StackMobQuery()
+				.field(new StackMobQueryField("username").isEqualTo(login)),
+				new StackMobQueryCallback<User>() {
+					@Override
+					public void success(List<User> result) {
+						
+						login_ = ((EditText) findViewById(R.id.tLogin)).getText().toString();
+						pass = ((EditText) findViewById(R.id.tPassword)).getText().toString();
+
+						if (result.size() == 0) {
+
+							saveUser();
+
+						} else {
+
+							showToast("Username already exists. Try again!");
+						}
+
+					}
+
+					@Override
+					public void failure(StackMobException e) {
+
+						showToast("Connection error!");
+					}
+				});
+
+	}
+
+	@UiThread
+	void saveUser() {
+
+		login = ((EditText) findViewById(R.id.tLogin)).getText().toString();
+		pass = ((EditText) findViewById(R.id.tPassword)).getText().toString();
+
+		User user = new User(login, pass);
+
+		
+		if(login.trim().equals("") || login.trim().equals("") || pass.trim().equals("") || pass.trim().equals("")){
+			
+			showToast("Please enter Login and Password!");
+			
+		} else {
+		
+		user.save();
+
+		showToast("Account created. You can log in now!");
 
 		}
+		
+	}
+
+	@Background
+	void goUser() {
+
+		Intent goUser = new Intent(MainActivity.this, MyStorms_.class);
+
+		startActivity(goUser);
+
+	}
+
+	@UiThread
+	void showToast(CharSequence msg) {
+
+		Context context = getApplicationContext();
+		// CharSequence text = "Welcome back!";
+		int duration = Toast.LENGTH_SHORT;
+
+		Toast toast = Toast.makeText(context, msg, duration);
+		toast.setGravity(Gravity.CENTER | Gravity.CENTER, 0, 0);
+		toast.show();
 
 	}
 
@@ -128,18 +195,5 @@ public class MainActivity extends Activity {
 		menu.add("Zavřít");
 		return true;
 	}
-
-	/*
-	 * public boolean onOptionsItemSelected(Menu.Item item) {
-	 * 
-	 * 
-	 * switch (item.getId()){ case 0: break; case 1: break;
-	 * 
-	 * }
-	 * 
-	 * return true;
-	 * 
-	 * }
-	 */
 
 }

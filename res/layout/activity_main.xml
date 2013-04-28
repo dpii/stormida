@@ -8,26 +8,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
-    <Button
-        android:id="@+id/btRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btLogin"
-        android:layout_alignBottom="@+id/btLogin"
-        android:layout_alignRight="@+id/tLogin"
-        android:layout_marginRight="24dp"
-        android:text="@string/lbRegister" />
-
-    <TextView
-        android:id="@+id/lbLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="56dp"
-        android:text="@string/lbLogin"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
     <EditText
         android:id="@+id/tLogin"
         android:layout_width="wrap_content"
@@ -41,24 +21,6 @@
         <requestFocus />
     </EditText>
 
-    <TextView
-        android:id="@+id/lbPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/lbPassword"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <Button
-        android:id="@+id/btLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tPassword"
-        android:layout_marginTop="44dp"
-        android:layout_toLeftOf="@+id/lbLogin"
-        android:text="@string/lbString" />
-
     <EditText
         android:id="@+id/tPassword"
         android:layout_width="wrap_content"
@@ -68,5 +30,44 @@
         android:layout_marginTop="28dp"
         android:ems="10"
         android:inputType="textPassword" />
+
+    <TextView
+        android:id="@+id/lbLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="@string/lbLogin"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/lbPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tLogin"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="31dp"
+        android:text="@string/lbPassword"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Button
+        android:id="@+id/btLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tPassword"
+        android:layout_marginTop="45dp"
+        android:layout_toLeftOf="@+id/lbLogin"
+        android:text="@string/lbString" />
+
+    <Button
+        android:id="@+id/btRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btLogin"
+        android:layout_alignBottom="@+id/btLogin"
+        android:layout_alignRight="@+id/tPassword"
+        android:layout_marginRight="21dp"
+        android:text="@string/lbRegister" />
 
 </RelativeLayout>

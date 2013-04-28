@@ -16,7 +16,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="cz.uhk.stormida.MainActivity"
+            android:name="cz.uhk.stormida.MainActivity_"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,7 +34,7 @@
             android:label="@string/title_activity_reg" >
         </activity>
         <activity
-            android:name="cz.uhk.stormida.MyStorms"
+            android:name="cz.uhk.stormida.MyStorms_"
             android:label="@string/title_activity_my_storms" >
         </activity>
     </application>

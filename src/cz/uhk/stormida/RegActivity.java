@@ -5,7 +5,6 @@ import java.util.List;
 import Model.User;
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.Menu;
@@ -22,7 +21,7 @@ import com.stackmob.sdk.exception.StackMobException;
 public class RegActivity extends Activity {
 
 	private String login, pass;
-	private boolean login_exists;
+	private boolean reg_done = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,85 +35,91 @@ public class RegActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 
+				
 				login = ((EditText) findViewById(R.id.reg_tLogin)).getText()
 						.toString();
 				pass = ((EditText) findViewById(R.id.reg_tPass)).getText()
 						.toString();
 
-				User user = new User(login, pass);
+				
+				
+				User.query(
+						User.class,
+						new StackMobQuery().fieldIsEqualTo("username",
+								login), new StackMobQueryCallback<User>() {
+							
+							
+							
 
-				checkUserExists(login);
+							@Override
+							public void failure(StackMobException e) {
 
-				if (!login_exists) {
+								Context context = getApplicationContext();
+								CharSequence text = "Connection Error!";
+								int duration = Toast.LENGTH_SHORT;
 
-					user.save();
+								Toast toast = Toast.makeText(context, text, duration);
+								toast.setGravity(Gravity.CENTER | Gravity.CENTER, 0, 0);
+								toast.show();
 
-					Context context = getApplicationContext();
-					CharSequence text = "New user created!";
-					int duration = Toast.LENGTH_SHORT;
+							}
 
-					Toast toast = Toast.makeText(context, text, duration);
-					toast.setGravity(Gravity.CENTER | Gravity.CENTER, 0, 0);
-					toast.show();
+							@Override
+							public void success(List<User> result) {
 
-					Intent main = new Intent(RegActivity.this,
-							MainActivity.class);
+								if (result.size() == 0) {
+									
+									User user = new User(login, pass);
+									
+									user.save();
 
-					startActivity(main);
+									finish();
+									
+									/*
+									Context context = getApplicationContext();
+									CharSequence text = "New user created!";
+									int duration = Toast.LENGTH_SHORT;
 
-				} else {
+									Toast toast = Toast.makeText(context, text,
+											duration);
+									toast.setGravity(Gravity.CENTER | Gravity.CENTER,
+											0, 0);
+									toast.show();
+									
+									reg_done = true;
 
-					Context context = getApplicationContext();
-					CharSequence text = "Login already used. Please try again!";
-					int duration = Toast.LENGTH_SHORT;
+									*/
+									
+									/*Intent main = new Intent(RegActivity.this,
+											MainActivity.class);
 
-					Toast toast = Toast.makeText(context, text, duration);
-					toast.setGravity(Gravity.CENTER | Gravity.CENTER, 0, 0);
-					toast.show();
+									startActivity(main);*/
+									
+									
 
-				}
+								} else {
+
+									/*
+									Context context = getApplicationContext();
+									CharSequence text = "Login already used. Please try again!";
+									int duration = Toast.LENGTH_SHORT;
+
+									Toast toast = Toast.makeText(context, text,
+											duration);
+									toast.setGravity(Gravity.CENTER | Gravity.CENTER,
+											0, 0);
+									toast.show();
+									*/
+									
+									reg_done = false;
+
+								}
+
+							}
+						});
 
 			}
 		});
-
-		
-
-	}
-
-	private void checkUserExists(String login) {
-
-		User.query(User.class,
-				new StackMobQuery().fieldIsEqualTo("username", login),
-				new StackMobQueryCallback<User>() {
-
-					@Override
-					public void failure(StackMobException e) {
-
-						Context context = getApplicationContext();
-						CharSequence text = "Connection Error!";
-						int duration = Toast.LENGTH_SHORT;
-
-						Toast toast = Toast.makeText(context, text, duration);
-						toast.setGravity(Gravity.CENTER | Gravity.CENTER, 0, 0);
-						toast.show();
-
-					}
-
-					@Override
-					public void success(List<User> result) {
-
-						if (result.size() == 0) {
-
-							login_exists = false;
-
-						} else {
-
-							login_exists = true;
-
-						}
-
-					}
-				});
 
 	}
 

@@ -9,7 +9,7 @@
     <string name="lbString">Login</string>
     <string name="lbRegister">Register</string>
     <string name="lbLogin">Login:</string>
-    <string name="lbPassword">Password</string>
+    <string name="lbPassword">Password:</string>
     <string name="title_activity_reg">RegActivity</string>
     <string name="title_activity_my_storms">MyStorms</string>
     <string name="lb_loggedAs"></string>
