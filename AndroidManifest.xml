@@ -37,6 +37,10 @@
             android:name="cz.uhk.stormida.MyStorms_"
             android:label="@string/title_activity_my_storms" >
         </activity>
+        <activity
+            android:name="cz.uhk.stormida.JoinStorm_"
+            android:label="@string/title_activity_join_storm" >
+        </activity>
     </application>
 
 </manifest>

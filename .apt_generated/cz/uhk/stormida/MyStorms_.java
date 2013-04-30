@@ -75,14 +75,14 @@ public final class MyStorms_
     }
 
     @Override
-    public void setLoggedUser(final User user) {
+    public void goAnon() {
         handler_.post(new Runnable() {
 
 
             @Override
             public void run() {
                 try {
-                    MyStorms_.super.setLoggedUser(user);
+                    MyStorms_.super.goAnon();
                 } catch (RuntimeException e) {
                     Log.e("MyStorms_", "A runtime exception was thrown while executing code in a runnable", e);
                 }
@@ -111,14 +111,14 @@ public final class MyStorms_
     }
 
     @Override
-    public void goAnon() {
+    public void setLoggedUser(final User user) {
         handler_.post(new Runnable() {
 
 
             @Override
             public void run() {
                 try {
-                    MyStorms_.super.goAnon();
+                    MyStorms_.super.setLoggedUser(user);
                 } catch (RuntimeException e) {
                     Log.e("MyStorms_", "A runtime exception was thrown while executing code in a runnable", e);
                 }

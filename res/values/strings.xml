@@ -13,5 +13,6 @@
     <string name="title_activity_reg">RegActivity</string>
     <string name="title_activity_my_storms">MyStorms</string>
     <string name="lb_loggedAs"></string>
+    <string name="title_activity_join_storm">JoinStorm</string>
 
 </resources>

@@ -14,13 +14,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
+import android.widget.EditText;
 import com.googlecode.androidannotations.api.BackgroundExecutor;
 import cz.uhk.stormida.R.id;
-import cz.uhk.stormida.R.layout;
 
-public final class MainActivity_
-    extends MainActivity
+public final class JoinStorm_
+    extends JoinStorm
 {
 
     private Handler handler_ = new Handler();
@@ -29,38 +28,23 @@ public final class MainActivity_
     public void onCreate(Bundle savedInstanceState) {
         init_(savedInstanceState);
         super.onCreate(savedInstanceState);
-        setContentView(layout.activity_main);
     }
 
     private void init_(Bundle savedInstanceState) {
     }
 
     private void afterSetContentView_() {
-        btLogin = ((Button) findViewById(id.btLogin));
+        etPass = ((EditText) findViewById(id.tvPass));
+        etName = ((EditText) findViewById(id.tvName));
         {
-            View view = findViewById(id.btRegister);
+            View view = findViewById(id.btJoinStorm);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        MainActivity_.this.clickRegister();
-                    }
-
-                }
-                );
-            }
-        }
-        {
-            View view = findViewById(id.btLogin);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        MainActivity_.this.clickLogin();
+                        JoinStorm_.this.JoinStorm();
                     }
 
                 }
@@ -87,44 +71,8 @@ public final class MainActivity_
         afterSetContentView_();
     }
 
-    public static MainActivity_.IntentBuilder_ intent(Context context) {
-        return new MainActivity_.IntentBuilder_(context);
-    }
-
-    @Override
-    public void checkUserExistsSave(final String login) {
-        handler_.post(new Runnable() {
-
-
-            @Override
-            public void run() {
-                try {
-                    MainActivity_.super.checkUserExistsSave(login);
-                } catch (RuntimeException e) {
-                    Log.e("MainActivity_", "A runtime exception was thrown while executing code in a runnable", e);
-                }
-            }
-
-        }
-        );
-    }
-
-    @Override
-    public void saveUser() {
-        handler_.post(new Runnable() {
-
-
-            @Override
-            public void run() {
-                try {
-                    MainActivity_.super.saveUser();
-                } catch (RuntimeException e) {
-                    Log.e("MainActivity_", "A runtime exception was thrown while executing code in a runnable", e);
-                }
-            }
-
-        }
-        );
+    public static JoinStorm_.IntentBuilder_ intent(Context context) {
+        return new JoinStorm_.IntentBuilder_(context);
     }
 
     @Override
@@ -135,9 +83,9 @@ public final class MainActivity_
             @Override
             public void run() {
                 try {
-                    MainActivity_.super.showToast(msg);
+                    JoinStorm_.super.showToast(msg);
                 } catch (RuntimeException e) {
-                    Log.e("MainActivity_", "A runtime exception was thrown while executing code in a runnable", e);
+                    Log.e("JoinStorm_", "A runtime exception was thrown while executing code in a runnable", e);
                 }
             }
 
@@ -146,16 +94,16 @@ public final class MainActivity_
     }
 
     @Override
-    public void goUser() {
+    public void checkPass(final Model.Topic Topic) {
         BackgroundExecutor.execute(new Runnable() {
 
 
             @Override
             public void run() {
                 try {
-                    MainActivity_.super.goUser();
+                    JoinStorm_.super.checkPass(Topic);
                 } catch (RuntimeException e) {
-                    Log.e("MainActivity_", "A runtime exception was thrown while executing code in a runnable", e);
+                    Log.e("JoinStorm_", "A runtime exception was thrown while executing code in a runnable", e);
                 }
             }
 
@@ -170,14 +118,14 @@ public final class MainActivity_
 
         public IntentBuilder_(Context context) {
             context_ = context;
-            intent_ = new Intent(context, MainActivity_.class);
+            intent_ = new Intent(context, JoinStorm_.class);
         }
 
         public Intent get() {
             return intent_;
         }
 
-        public MainActivity_.IntentBuilder_ flags(int flags) {
+        public JoinStorm_.IntentBuilder_ flags(int flags) {
             intent_.setFlags(flags);
             return this;
         }
