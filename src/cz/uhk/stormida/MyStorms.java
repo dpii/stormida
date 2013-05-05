@@ -2,6 +2,7 @@ package cz.uhk.stormida;
 
 import java.util.List;
 
+import Model.Topic;
 import Model.User;
 import android.app.Activity;
 import android.content.Context;
@@ -10,14 +11,21 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Click;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.stackmob.sdk.api.StackMob;
+import com.stackmob.sdk.api.StackMobQuery;
 import com.stackmob.sdk.callback.StackMobModelCallback;
 import com.stackmob.sdk.callback.StackMobQueryCallback;
 import com.stackmob.sdk.exception.StackMobException;
@@ -30,10 +38,34 @@ public class MyStorms extends Activity {
 	@ViewById(R.id.tv_LoggedAs)
 	TextView lu;
 
+	@ViewById(R.id.lvStorms)
+	ListView lv;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_storms);
+
+		getData();
+
+		lv.setClickable(true);
+		lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> arg0, View arg1,
+					int position, long arg3) {
+
+				Topic t = (Topic) lv.getItemAtPosition(position);
+
+				Intent goIdea = new Intent(MyStorms.this, Idea_.class);
+
+				String s = t.getTitle();
+				
+				goIdea.putExtra("topic", s);
+				startActivity(goIdea);
+
+			}
+		});
 
 		final Handler handler = new Handler() {
 
@@ -62,17 +94,39 @@ public class MyStorms extends Activity {
 
 		}
 
-		getData();
+	}
+
+	@Background
+	void getData() {
+
+		Topic.query(Topic.class, new StackMobQuery().isInRange(0, 9),
+				new StackMobQueryCallback<Topic>() {
+					@Override
+					public void success(List<Topic> result) {
+
+						bindData(result);
+
+					}
+
+					@Override
+					public void failure(StackMobException e) {
+					}
+				});
 
 	}
 
-	private void getData() {
+	@UiThread
+	void bindData(List<Topic> result) {
+
+		ListAdapter adapt = new ArrayAdapter<Topic>(this,
+				android.R.layout.simple_list_item_1, result);
+		lv.setAdapter(adapt);
 
 	}
 
 	@UiThread
 	void setLoggedUser(User user) {
-			lu.setText(user.getUsername());
+		lu.setText("Logged: " + user.getUsername());
 	}
 
 	@Click(R.id.btLogout)
@@ -92,6 +146,22 @@ public class MyStorms extends Activity {
 				showToast("Error! Cant logout now.");
 			}
 		});
+
+	}
+
+	@Click(R.id.btJoin)
+	void join() {
+
+		Intent goJoin = new Intent(MyStorms.this, JoinStorm_.class);
+		startActivity(goJoin);
+
+	}
+
+	@Click(R.id.btCreate)
+	void create() {
+
+		Intent goCreate = new Intent(MyStorms.this, NewStorm_.class);
+		startActivity(goCreate);
 
 	}
 

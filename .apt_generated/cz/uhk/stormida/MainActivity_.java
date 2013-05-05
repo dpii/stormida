@@ -38,21 +38,6 @@ public final class MainActivity_
     private void afterSetContentView_() {
         btLogin = ((Button) findViewById(id.btLogin));
         {
-            View view = findViewById(id.btRegister);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        MainActivity_.this.clickRegister();
-                    }
-
-                }
-                );
-            }
-        }
-        {
             View view = findViewById(id.btLogin);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
@@ -61,6 +46,21 @@ public final class MainActivity_
                     @Override
                     public void onClick(View view) {
                         MainActivity_.this.clickLogin();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = findViewById(id.btRegister);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        MainActivity_.this.clickRegister();
                     }
 
                 }
@@ -110,14 +110,14 @@ public final class MainActivity_
     }
 
     @Override
-    public void saveUser() {
+    public void showToast(final CharSequence msg) {
         handler_.post(new Runnable() {
 
 
             @Override
             public void run() {
                 try {
-                    MainActivity_.super.saveUser();
+                    MainActivity_.super.showToast(msg);
                 } catch (RuntimeException e) {
                     Log.e("MainActivity_", "A runtime exception was thrown while executing code in a runnable", e);
                 }
@@ -128,14 +128,14 @@ public final class MainActivity_
     }
 
     @Override
-    public void showToast(final CharSequence msg) {
+    public void saveUser() {
         handler_.post(new Runnable() {
 
 
             @Override
             public void run() {
                 try {
-                    MainActivity_.super.showToast(msg);
+                    MainActivity_.super.saveUser();
                 } catch (RuntimeException e) {
                     Log.e("MainActivity_", "A runtime exception was thrown while executing code in a runnable", e);
                 }

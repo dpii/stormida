@@ -27,10 +27,10 @@ public class JoinStorm extends Activity {
 	private String name, pass;
 	private Topic topic;
 
-	@ViewById(R.id.tvName)
+	@ViewById(R.id.etNewStorm_name)
 	EditText etName;
 
-	@ViewById(R.id.tvPass)
+	@ViewById(R.id.etNewStorm_pass)
 	EditText etPass;
 
 	@Override
@@ -41,7 +41,7 @@ public class JoinStorm extends Activity {
 	}
 
 	@Click(R.id.btJoinStorm)
-	void JoinStorm() {
+	void joinStorm() {
 
 		name = etName.getText().toString();
 		pass = etPass.getText().toString();
@@ -52,9 +52,9 @@ public class JoinStorm extends Activity {
 					@Override
 					public void success(List<Topic> result) {
 
-						Topic = result.get(0);
+						topic = result.get(0);
 
-						checkPass(Topic);
+						checkPass(topic);
 
 					}
 
@@ -63,7 +63,7 @@ public class JoinStorm extends Activity {
 					}
 				});
 
-		if (Topic != null) {
+		if (topic != null) {
 
 			Topic.query(Topic.class, new StackMobQuery()
 					.field(new StackMobQueryField("name").isEqualTo(name)),
@@ -71,7 +71,7 @@ public class JoinStorm extends Activity {
 						@Override
 						public void success(List<Topic> result) {
 
-							Topic = result.get(0);
+							topic = result.get(0);
 
 						}
 
@@ -96,7 +96,7 @@ public class JoinStorm extends Activity {
 		
 		if (pass.equals(topic.getPass())){
 			
-			showToast("You added " + topic.getTopic());
+			showToast("You added " + topic.getTitle());
 			
 		}
 

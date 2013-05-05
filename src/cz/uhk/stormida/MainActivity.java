@@ -2,6 +2,7 @@ package cz.uhk.stormida;
 
 import java.util.List;
 
+import Model.TopicList;
 import Model.User;
 import android.app.Activity;
 import android.content.Context;
@@ -148,7 +149,14 @@ public class MainActivity extends Activity {
 		login = ((EditText) findViewById(R.id.tLogin)).getText().toString();
 		pass = ((EditText) findViewById(R.id.tPassword)).getText().toString();
 
+		
+		List<TopicList> topicList = null;
+		
+			
+		
 		User user = new User(login, pass);
+		
+		user.setTopicLists(topicList);
 
 		
 		if(login.trim().equals("") || login.trim().equals("") || pass.trim().equals("") || pass.trim().equals("")){

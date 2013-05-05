@@ -14,12 +14,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.EditText;
-import com.googlecode.androidannotations.api.BackgroundExecutor;
+import android.widget.ListView;
 import cz.uhk.stormida.R.id;
 
-public final class JoinStorm_
-    extends JoinStorm
+public final class Idea_
+    extends Idea
 {
 
     private Handler handler_ = new Handler();
@@ -34,17 +33,31 @@ public final class JoinStorm_
     }
 
     private void afterSetContentView_() {
-        etName = ((EditText) findViewById(id.etNewStorm_name));
-        etPass = ((EditText) findViewById(id.etNewStorm_pass));
+        lvIdeas = ((ListView) findViewById(id.lvIdeas));
         {
-            View view = findViewById(id.btJoinStorm);
+            View view = findViewById(id.btAdd);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
 
 
                     @Override
                     public void onClick(View view) {
-                        JoinStorm_.this.joinStorm();
+                        Idea_.this.add();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = findViewById(id.btDownload);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        Idea_.this.download();
                     }
 
                 }
@@ -71,8 +84,8 @@ public final class JoinStorm_
         afterSetContentView_();
     }
 
-    public static JoinStorm_.IntentBuilder_ intent(Context context) {
-        return new JoinStorm_.IntentBuilder_(context);
+    public static Idea_.IntentBuilder_ intent(Context context) {
+        return new Idea_.IntentBuilder_(context);
     }
 
     @Override
@@ -83,27 +96,9 @@ public final class JoinStorm_
             @Override
             public void run() {
                 try {
-                    JoinStorm_.super.showToast(msg);
+                    Idea_.super.showToast(msg);
                 } catch (RuntimeException e) {
-                    Log.e("JoinStorm_", "A runtime exception was thrown while executing code in a runnable", e);
-                }
-            }
-
-        }
-        );
-    }
-
-    @Override
-    public void checkPass(final Model.Topic Topic) {
-        BackgroundExecutor.execute(new Runnable() {
-
-
-            @Override
-            public void run() {
-                try {
-                    JoinStorm_.super.checkPass(Topic);
-                } catch (RuntimeException e) {
-                    Log.e("JoinStorm_", "A runtime exception was thrown while executing code in a runnable", e);
+                    Log.e("Idea_", "A runtime exception was thrown while executing code in a runnable", e);
                 }
             }
 
@@ -118,14 +113,14 @@ public final class JoinStorm_
 
         public IntentBuilder_(Context context) {
             context_ = context;
-            intent_ = new Intent(context, JoinStorm_.class);
+            intent_ = new Intent(context, Idea_.class);
         }
 
         public Intent get() {
             return intent_;
         }
 
-        public JoinStorm_.IntentBuilder_ flags(int flags) {
+        public Idea_.IntentBuilder_ flags(int flags) {
             intent_.setFlags(flags);
             return this;
         }

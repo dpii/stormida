@@ -1,13 +1,14 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/RelativeLayout1"
+    android:id="@+id/AbsoluteLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".MyStorms" >
+    tools:context=".MyStorms"
+    tools:ignore="Deprecated" >
 
     <Space
         android:id="@+id/Space1"
@@ -18,47 +19,42 @@
         android:id="@+id/lvStorms"
         android:layout_width="242dp"
         android:layout_height="291dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/btJoin"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="32dp"
         android:layout_x="24dp"
         android:layout_y="170dp" >
     </ListView>
 
-    <Button
-        android:id="@+id/btCreate"
-        android:layout_width="wrap_content"
-        android:layout_height="66dp"
-        android:layout_alignLeft="@+id/lvStorms"
-        android:layout_below="@+id/tv_LoggedAs"
-        android:layout_marginTop="16dp"
-        android:text="Create Storm" />
-
-    <Button
-        android:id="@+id/btJoin"
-        android:layout_width="82dp"
-        android:layout_height="66dp"
-        android:layout_alignRight="@+id/btLogout"
-        android:layout_alignTop="@+id/btCreate"
-        android:text="Join Storm" />
-
     <TextView
         android:id="@+id/tv_LoggedAs"
-        android:layout_width="58dp"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btCreate"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="16dp"
+        android:layout_width="198dp"
+        android:layout_height="75dp"
         android:text="@string/lb_loggedAs"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <Button
         android:id="@+id/btLogout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btCreate"
-        android:layout_alignRight="@+id/lvStorms"
-        android:text="Logout" />
+        android:layout_height="66dp"
+        android:layout_x="210dp"
+        android:layout_y="6dp"
+        android:text="Logout"
+        tools:ignore="HardcodedText" />
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/btCreate"
+        android:layout_width="173dp"
+        android:layout_height="72dp"
+        android:layout_x="124dp"
+        android:layout_y="90dp"
+        android:text="Create Storm"
+        tools:ignore="HardcodedText" />
+
+    <Button
+        android:id="@+id/btJoin"
+        android:layout_width="82dp"
+        android:layout_height="66dp"
+        android:layout_x="28dp"
+        android:layout_y="92dp"
+        android:text="Join Storm"
+        tools:ignore="HardcodedText" />
+
+</AbsoluteLayout>

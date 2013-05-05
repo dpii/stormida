@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.stackmob.sdk.model.StackMobUser;
-import com.stackmob.taskmob.TaskList;
 
  
 public class User extends StackMobUser {
@@ -14,19 +13,20 @@ public class User extends StackMobUser {
     }
  
 
-	private List<IdeaList> topicLists;
+	private List<TopicList> topicLists;
+
+
+	public List<TopicList> getTopicLists() {
+		if(topicLists == null) {
+			topicLists = new ArrayList<TopicList>();
+		}
+		return topicLists;
+	}
+
+
+	public void setTopicLists(List<TopicList> topicLists) {
+		this.topicLists = topicLists;
+	}
 	
-    public List<IdeaList> getIdeaLists() {
-        return IdeaLists;
-    }
-    
-    
-	private List<TaskList> taskLists;
-	
-	public List<TaskList>  getTaskLists() {
-		
- 
-    public void setTasks(List<IdeaList> IdeaLists) {
-        this.IdeaLists = IdeaLists;
-    }
+
 }

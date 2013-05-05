@@ -41,6 +41,14 @@
             android:name="cz.uhk.stormida.JoinStorm_"
             android:label="@string/title_activity_join_storm" >
         </activity>
+        <activity
+            android:name="cz.uhk.stormida.NewStorm_"
+            android:label="@string/title_activity_new_storm" >
+        </activity>
+        <activity
+            android:name="cz.uhk.stormida.Idea_"
+            android:label="@string/title_activity_idea" >
+        </activity>
     </application>
 
 </manifest>

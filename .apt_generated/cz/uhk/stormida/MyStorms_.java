@@ -5,6 +5,8 @@
 
 package cz.uhk.stormida;
 
+import java.util.List;
+import Model.Topic;
 import Model.User;
 import android.app.Activity;
 import android.content.Context;
@@ -15,7 +17,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.ListView;
 import android.widget.TextView;
+import com.googlecode.androidannotations.api.BackgroundExecutor;
 import cz.uhk.stormida.R.id;
 
 public final class MyStorms_
@@ -35,6 +39,7 @@ public final class MyStorms_
 
     private void afterSetContentView_() {
         lu = ((TextView) findViewById(id.tv_LoggedAs));
+        lv = ((ListView) findViewById(id.lvStorms));
         {
             View view = findViewById(id.btLogout);
             if (view!= null) {
@@ -44,6 +49,36 @@ public final class MyStorms_
                     @Override
                     public void onClick(View view) {
                         MyStorms_.this.logout();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = findViewById(id.btCreate);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        MyStorms_.this.create();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = findViewById(id.btJoin);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        MyStorms_.this.join();
                     }
 
                 }
@@ -75,14 +110,32 @@ public final class MyStorms_
     }
 
     @Override
-    public void goAnon() {
+    public void bindData(final List<Topic> result) {
         handler_.post(new Runnable() {
 
 
             @Override
             public void run() {
                 try {
-                    MyStorms_.super.goAnon();
+                    MyStorms_.super.bindData(result);
+                } catch (RuntimeException e) {
+                    Log.e("MyStorms_", "A runtime exception was thrown while executing code in a runnable", e);
+                }
+            }
+
+        }
+        );
+    }
+
+    @Override
+    public void setLoggedUser(final User user) {
+        handler_.post(new Runnable() {
+
+
+            @Override
+            public void run() {
+                try {
+                    MyStorms_.super.setLoggedUser(user);
                 } catch (RuntimeException e) {
                     Log.e("MyStorms_", "A runtime exception was thrown while executing code in a runnable", e);
                 }
@@ -111,14 +164,32 @@ public final class MyStorms_
     }
 
     @Override
-    public void setLoggedUser(final User user) {
+    public void goAnon() {
         handler_.post(new Runnable() {
 
 
             @Override
             public void run() {
                 try {
-                    MyStorms_.super.setLoggedUser(user);
+                    MyStorms_.super.goAnon();
+                } catch (RuntimeException e) {
+                    Log.e("MyStorms_", "A runtime exception was thrown while executing code in a runnable", e);
+                }
+            }
+
+        }
+        );
+    }
+
+    @Override
+    public void getData() {
+        BackgroundExecutor.execute(new Runnable() {
+
+
+            @Override
+            public void run() {
+                try {
+                    MyStorms_.super.getData();
                 } catch (RuntimeException e) {
                     Log.e("MyStorms_", "A runtime exception was thrown while executing code in a runnable", e);
                 }
