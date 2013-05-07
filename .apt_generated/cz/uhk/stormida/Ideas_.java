@@ -5,6 +5,8 @@
 
 package cz.uhk.stormida;
 
+import java.util.List;
+import Model.Idea;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -14,11 +16,13 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import cz.uhk.stormida.R.id;
 
-public final class Idea_
-    extends Idea
+public final class Ideas_
+    extends Ideas
 {
 
     private Handler handler_ = new Handler();
@@ -33,6 +37,8 @@ public final class Idea_
     }
 
     private void afterSetContentView_() {
+        etIdea = ((EditText) findViewById(id.etIdea));
+        tvTitle = ((TextView) findViewById(id.tvTitle));
         lvIdeas = ((ListView) findViewById(id.lvIdeas));
         {
             View view = findViewById(id.btAdd);
@@ -42,7 +48,7 @@ public final class Idea_
 
                     @Override
                     public void onClick(View view) {
-                        Idea_.this.add();
+                        Ideas_.this.add();
                     }
 
                 }
@@ -57,7 +63,7 @@ public final class Idea_
 
                     @Override
                     public void onClick(View view) {
-                        Idea_.this.download();
+                        Ideas_.this.download();
                     }
 
                 }
@@ -84,8 +90,8 @@ public final class Idea_
         afterSetContentView_();
     }
 
-    public static Idea_.IntentBuilder_ intent(Context context) {
-        return new Idea_.IntentBuilder_(context);
+    public static Ideas_.IntentBuilder_ intent(Context context) {
+        return new Ideas_.IntentBuilder_(context);
     }
 
     @Override
@@ -96,9 +102,45 @@ public final class Idea_
             @Override
             public void run() {
                 try {
-                    Idea_.super.showToast(msg);
+                    Ideas_.super.showToast(msg);
                 } catch (RuntimeException e) {
-                    Log.e("Idea_", "A runtime exception was thrown while executing code in a runnable", e);
+                    Log.e("Ideas_", "A runtime exception was thrown while executing code in a runnable", e);
+                }
+            }
+
+        }
+        );
+    }
+
+    @Override
+    public void bindData(final List<Idea> ideas) {
+        handler_.post(new Runnable() {
+
+
+            @Override
+            public void run() {
+                try {
+                    Ideas_.super.bindData(ideas);
+                } catch (RuntimeException e) {
+                    Log.e("Ideas_", "A runtime exception was thrown while executing code in a runnable", e);
+                }
+            }
+
+        }
+        );
+    }
+
+    @Override
+    public void clearET() {
+        handler_.post(new Runnable() {
+
+
+            @Override
+            public void run() {
+                try {
+                    Ideas_.super.clearET();
+                } catch (RuntimeException e) {
+                    Log.e("Ideas_", "A runtime exception was thrown while executing code in a runnable", e);
                 }
             }
 
@@ -113,14 +155,14 @@ public final class Idea_
 
         public IntentBuilder_(Context context) {
             context_ = context;
-            intent_ = new Intent(context, Idea_.class);
+            intent_ = new Intent(context, Ideas_.class);
         }
 
         public Intent get() {
             return intent_;
         }
 
-        public Idea_.IntentBuilder_ flags(int flags) {
+        public Ideas_.IntentBuilder_ flags(int flags) {
             intent_.setFlags(flags);
             return this;
         }

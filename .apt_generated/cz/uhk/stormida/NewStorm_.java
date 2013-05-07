@@ -33,8 +33,8 @@ public final class NewStorm_
     }
 
     private void afterSetContentView_() {
-        etName = ((EditText) findViewById(id.etNewStorm_name));
         etPass = ((EditText) findViewById(id.etNewStorm_pass));
+        etTitle = ((EditText) findViewById(id.etNewStorm_name));
         {
             View view = findViewById(id.btNS_Create);
             if (view!= null) {
@@ -83,6 +83,24 @@ public final class NewStorm_
             public void run() {
                 try {
                     NewStorm_.super.showToast(msg);
+                } catch (RuntimeException e) {
+                    Log.e("NewStorm_", "A runtime exception was thrown while executing code in a runnable", e);
+                }
+            }
+
+        }
+        );
+    }
+
+    @Override
+    public void saveTopic() {
+        handler_.post(new Runnable() {
+
+
+            @Override
+            public void run() {
+                try {
+                    NewStorm_.super.saveTopic();
                 } catch (RuntimeException e) {
                     Log.e("NewStorm_", "A runtime exception was thrown while executing code in a runnable", e);
                 }

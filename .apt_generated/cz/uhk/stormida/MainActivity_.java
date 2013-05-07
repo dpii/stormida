@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
-import com.googlecode.androidannotations.api.BackgroundExecutor;
 import cz.uhk.stormida.R.id;
 import cz.uhk.stormida.R.layout;
 
@@ -38,21 +37,6 @@ public final class MainActivity_
     private void afterSetContentView_() {
         btLogin = ((Button) findViewById(id.btLogin));
         {
-            View view = findViewById(id.btLogin);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        MainActivity_.this.clickLogin();
-                    }
-
-                }
-                );
-            }
-        }
-        {
             View view = findViewById(id.btRegister);
             if (view!= null) {
                 view.setOnClickListener(new OnClickListener() {
@@ -61,6 +45,21 @@ public final class MainActivity_
                     @Override
                     public void onClick(View view) {
                         MainActivity_.this.clickRegister();
+                    }
+
+                }
+                );
+            }
+        }
+        {
+            View view = findViewById(id.btLogin);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        MainActivity_.this.clickLogin();
                     }
 
                 }
@@ -92,14 +91,14 @@ public final class MainActivity_
     }
 
     @Override
-    public void checkUserExistsSave(final String login) {
+    public void goUser() {
         handler_.post(new Runnable() {
 
 
             @Override
             public void run() {
                 try {
-                    MainActivity_.super.checkUserExistsSave(login);
+                    MainActivity_.super.goUser();
                 } catch (RuntimeException e) {
                     Log.e("MainActivity_", "A runtime exception was thrown while executing code in a runnable", e);
                 }
@@ -128,14 +127,14 @@ public final class MainActivity_
     }
 
     @Override
-    public void saveUser() {
+    public void checkUserExistsSave(final String login) {
         handler_.post(new Runnable() {
 
 
             @Override
             public void run() {
                 try {
-                    MainActivity_.super.saveUser();
+                    MainActivity_.super.checkUserExistsSave(login);
                 } catch (RuntimeException e) {
                     Log.e("MainActivity_", "A runtime exception was thrown while executing code in a runnable", e);
                 }
@@ -146,14 +145,14 @@ public final class MainActivity_
     }
 
     @Override
-    public void goUser() {
-        BackgroundExecutor.execute(new Runnable() {
+    public void saveUser() {
+        handler_.post(new Runnable() {
 
 
             @Override
             public void run() {
                 try {
-                    MainActivity_.super.goUser();
+                    MainActivity_.super.saveUser();
                 } catch (RuntimeException e) {
                     Log.e("MainActivity_", "A runtime exception was thrown while executing code in a runnable", e);
                 }

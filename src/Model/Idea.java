@@ -29,4 +29,10 @@ public class Idea extends StackMobModel {
 		this.plus = plus;
 	}
 
+	@Override
+	public String toString() {
+
+		return text;
+	}
+
 }

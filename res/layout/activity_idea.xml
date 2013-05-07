@@ -6,47 +6,53 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".Idea" >
-
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="22dp"
-        android:ems="10" >
-
-        <requestFocus />
-    </EditText>
+    tools:context=".Ideas" >
 
     <Button
         android:id="@+id/btDownload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/editText1"
+        android:layout_below="@+id/etIdea"
         android:layout_marginRight="22dp"
         android:text="Download" />
-
-    <Button
-        android:id="@+id/btAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btDownload"
-        android:layout_alignBottom="@+id/btDownload"
-        android:layout_alignLeft="@+id/editText1"
-        android:layout_marginLeft="32dp"
-        android:text="Add" />
 
     <ListView
         android:id="@+id/lvIdeas"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/editText1"
+        android:layout_alignParentLeft="true"
         android:layout_below="@+id/btDownload" >
 
     </ListView>
+
+    <EditText
+        android:id="@+id/etIdea"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tvTitle"
+        android:layout_marginLeft="28dp"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/btAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/lvIdeas"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="24dp"
+        android:text="Add" />
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/etIdea"
+        android:layout_alignParentTop="true"
+        android:text="TextView" />
 
 </RelativeLayout>

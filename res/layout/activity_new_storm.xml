@@ -32,7 +32,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignRight="@+id/etNewStorm_name"
-        android:layout_below="@+id/textView1"
+        android:layout_below="@+id/tvTitle"
         android:layout_marginTop="24dp"
         android:ems="10"
         android:inputType="textPassword" />
@@ -47,7 +47,7 @@
         android:text="Create" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/etNewStorm_name"

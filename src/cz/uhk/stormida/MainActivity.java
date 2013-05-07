@@ -2,7 +2,6 @@ package cz.uhk.stormida;
 
 import java.util.List;
 
-import Model.TopicList;
 import Model.User;
 import android.app.Activity;
 import android.content.Context;
@@ -14,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Click;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.UiThread;
@@ -55,19 +53,16 @@ public class MainActivity extends Activity {
 				@Override
 				public void success(List<User> list) {
 
-					//User loggedInUser = list.get(0);
-
 					goUser();
 				}
 
 				@Override
 				public void failure(StackMobException e) {
-					showToast("Connection Error!");
+
 				}
 			});
 		} else {
 
-			
 		}
 
 	}
@@ -119,9 +114,11 @@ public class MainActivity extends Activity {
 				new StackMobQueryCallback<User>() {
 					@Override
 					public void success(List<User> result) {
-						
-						login_ = ((EditText) findViewById(R.id.tLogin)).getText().toString();
-						pass = ((EditText) findViewById(R.id.tPassword)).getText().toString();
+
+						login_ = ((EditText) findViewById(R.id.tLogin))
+								.getText().toString();
+						pass = ((EditText) findViewById(R.id.tPassword))
+								.getText().toString();
 
 						if (result.size() == 0) {
 
@@ -149,31 +146,24 @@ public class MainActivity extends Activity {
 		login = ((EditText) findViewById(R.id.tLogin)).getText().toString();
 		pass = ((EditText) findViewById(R.id.tPassword)).getText().toString();
 
-		
-		List<TopicList> topicList = null;
-		
-			
-		
 		User user = new User(login, pass);
-		
-		user.setTopicLists(topicList);
 
-		
-		if(login.trim().equals("") || login.trim().equals("") || pass.trim().equals("") || pass.trim().equals("")){
-			
+		if (login.trim().equals("") || login.trim().equals("")
+				|| pass.trim().equals("") || pass.trim().equals("")) {
+
 			showToast("Please enter Login and Password!");
-			
-		} else {
-		
-		user.save();
 
-		showToast("Account created. You can log in now!");
+		} else {
+
+			user.save();
+
+			showToast("Account created. You can log in now!");
 
 		}
-		
+
 	}
 
-	@Background
+	@UiThread
 	void goUser() {
 
 		Intent goUser = new Intent(MainActivity.this, MyStorms_.class);

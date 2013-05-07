@@ -6,7 +6,7 @@
 package cz.uhk.stormida;
 
 import java.util.List;
-import Model.Topic;
+import Model.Storm;
 import Model.User;
 import android.app.Activity;
 import android.content.Context;
@@ -38,23 +38,8 @@ public final class MyStorms_
     }
 
     private void afterSetContentView_() {
-        lu = ((TextView) findViewById(id.tv_LoggedAs));
         lv = ((ListView) findViewById(id.lvStorms));
-        {
-            View view = findViewById(id.btLogout);
-            if (view!= null) {
-                view.setOnClickListener(new OnClickListener() {
-
-
-                    @Override
-                    public void onClick(View view) {
-                        MyStorms_.this.logout();
-                    }
-
-                }
-                );
-            }
-        }
+        lu = ((TextView) findViewById(id.tv_LoggedAs));
         {
             View view = findViewById(id.btCreate);
             if (view!= null) {
@@ -85,6 +70,21 @@ public final class MyStorms_
                 );
             }
         }
+        {
+            View view = findViewById(id.btLogout);
+            if (view!= null) {
+                view.setOnClickListener(new OnClickListener() {
+
+
+                    @Override
+                    public void onClick(View view) {
+                        MyStorms_.this.logout();
+                    }
+
+                }
+                );
+            }
+        }
     }
 
     @Override
@@ -107,24 +107,6 @@ public final class MyStorms_
 
     public static MyStorms_.IntentBuilder_ intent(Context context) {
         return new MyStorms_.IntentBuilder_(context);
-    }
-
-    @Override
-    public void bindData(final List<Topic> result) {
-        handler_.post(new Runnable() {
-
-
-            @Override
-            public void run() {
-                try {
-                    MyStorms_.super.bindData(result);
-                } catch (RuntimeException e) {
-                    Log.e("MyStorms_", "A runtime exception was thrown while executing code in a runnable", e);
-                }
-            }
-
-        }
-        );
     }
 
     @Override
@@ -182,14 +164,32 @@ public final class MyStorms_
     }
 
     @Override
-    public void getData() {
+    public void bindData(final List<Storm> topics) {
+        handler_.post(new Runnable() {
+
+
+            @Override
+            public void run() {
+                try {
+                    MyStorms_.super.bindData(topics);
+                } catch (RuntimeException e) {
+                    Log.e("MyStorms_", "A runtime exception was thrown while executing code in a runnable", e);
+                }
+            }
+
+        }
+        );
+    }
+
+    @Override
+    public void getLoggedUser() {
         BackgroundExecutor.execute(new Runnable() {
 
 
             @Override
             public void run() {
                 try {
-                    MyStorms_.super.getData();
+                    MyStorms_.super.getLoggedUser();
                 } catch (RuntimeException e) {
                     Log.e("MyStorms_", "A runtime exception was thrown while executing code in a runnable", e);
                 }

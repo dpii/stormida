@@ -46,7 +46,7 @@
             android:label="@string/title_activity_new_storm" >
         </activity>
         <activity
-            android:name="cz.uhk.stormida.Idea_"
+            android:name="cz.uhk.stormida.Ideas_"
             android:label="@string/title_activity_idea" >
         </activity>
     </application>

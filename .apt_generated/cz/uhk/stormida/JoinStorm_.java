@@ -5,6 +5,8 @@
 
 package cz.uhk.stormida;
 
+import Model.Storm;
+import Model.User;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +17,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.EditText;
-import com.googlecode.androidannotations.api.BackgroundExecutor;
 import cz.uhk.stormida.R.id;
 
 public final class JoinStorm_
@@ -34,8 +35,8 @@ public final class JoinStorm_
     }
 
     private void afterSetContentView_() {
-        etName = ((EditText) findViewById(id.etNewStorm_name));
-        etPass = ((EditText) findViewById(id.etNewStorm_pass));
+        etTitle = ((EditText) findViewById(id.etTitle));
+        etPass = ((EditText) findViewById(id.etPass));
         {
             View view = findViewById(id.btJoinStorm);
             if (view!= null) {
@@ -94,14 +95,32 @@ public final class JoinStorm_
     }
 
     @Override
-    public void checkPass(final Model.Topic Topic) {
-        BackgroundExecutor.execute(new Runnable() {
+    public void checkPass(final Storm storm) {
+        handler_.post(new Runnable() {
 
 
             @Override
             public void run() {
                 try {
-                    JoinStorm_.super.checkPass(Topic);
+                    JoinStorm_.super.checkPass(storm);
+                } catch (RuntimeException e) {
+                    Log.e("JoinStorm_", "A runtime exception was thrown while executing code in a runnable", e);
+                }
+            }
+
+        }
+        );
+    }
+
+    @Override
+    public void saveTopic(final User loggedInUser) {
+        handler_.post(new Runnable() {
+
+
+            @Override
+            public void run() {
+                try {
+                    JoinStorm_.super.saveTopic(loggedInUser);
                 } catch (RuntimeException e) {
                     Log.e("JoinStorm_", "A runtime exception was thrown while executing code in a runnable", e);
                 }
